@@ -2,13 +2,14 @@
 override MAKEFLAGS += -rR
 
 override ZIGFLAGS += \
-    -Doptimize=ReleaseSafe
+    -Doptimize=Debug
 
 .PHONY: all
 all: kernel
 
 .PHONY: kernel
 kernel: limine-zig
+	nasm -f elf64 src/cpu/idt.s -o idt.o
 	zig build $(ZIGFLAGS)
 
 limine-zig:
